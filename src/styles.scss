@@ -4,8 +4,9 @@
 // :host ::ng-deep mySelector{}
 // for CSS added to index.html
 //  body ::ng-deep  mySelector {}
-@import url('https://fonts.googleapis.com/css2?family=Acme&family=Redressed&display=swap');
+@import "~bootstrap-icons/font/bootstrap-icons.css";
 @import "~@ng-select/ng-select/themes/default.theme.css";
+@import url('https://fonts.googleapis.com/css2?family=Acme&family=Redressed&display=swap');
 *,
 *:before,
 *:after {
@@ -16,7 +17,6 @@
 // main colors
 $color-yellow: #ffc107;
 $color-orange: #f18900;
-$color-blue: #52b2ad;
 $color-petroleum: #3b474d;
 $color-dark-petroleum: #172c3d;
 $color-gray: #f9f9f9;
@@ -55,7 +55,6 @@ $information-MobileSmall: "only screen and (max-width : 320px)";
 }
 
 body {
-  font-family: "MyWebFont-reg", Fallback, sans-serif;
   &::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
     background-color: #f5f5f5;
@@ -67,12 +66,12 @@ body {
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: $color-blue;
+    background-color:  $color-petroleum;
   }
 }
 
 main {
-  min-height: 75vh;
+  min-height: 85vh;
 }
 
 %box-element {
@@ -118,17 +117,16 @@ main {
 }
 
 %input {
-  box-shadow: 9px 9px 19px 0px rgba(0, 0, 0, 0.13);
+  // box-shadow: 9px 9px 19px 0px rgba(0, 0, 0, 0.13);
   background-color: white;
-  border: none;
-  border-radius: 15px;
+  border: 1px solid $color-yellow;
+  border-radius: 7px;
   height: 60px;
-  font-family: "MyWebFont-bd";
   font-size: 12px;
   transition: 0.2s;
 
   &::placeholder {
-    color: $color-gray;
+    color: #999999;
     font-weight: normal;
   }
   &:focus-within {
@@ -137,7 +135,7 @@ main {
 }
 
 .btn-blue {
-  @include btn($color-blue);
+  @include btn( $color-petroleum);
 }
 .btn-orange {
   @include btn($color-orange);
@@ -173,7 +171,7 @@ main {
   .ng-dropdown-panel {
     background-color: #ffffff;
     border-radius: 0 0 18px 18px;
-    border-bottom: solid 3px $color-blue;
+    border-bottom: solid 3px $color-yellow;
     padding: 9px 0;
 
     .scroll-host {
@@ -181,7 +179,7 @@ main {
       .ng-option {
         padding: 5px;
         &:hover {
-          background-color: $color-blue;
+          background-color: $color-yellow;
           color: #ffffff;
         }
       }
@@ -196,7 +194,7 @@ main {
       }
 
       &::-webkit-scrollbar-thumb {
-        background-color: $color-blue;
+        background-color: $color-yellow;;
       }
     }
   }
