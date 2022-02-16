@@ -7,6 +7,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ConverterComponent } from './components/converter/converter.component';
 import { LoaderComponent } from './components/loader/loader.component';
+import { ConversionsDetailsComponent } from './components/conversions-details/conversions-details.component';
 
 @NgModule({
   declarations: [
@@ -14,13 +15,11 @@ import { LoaderComponent } from './components/loader/loader.component';
     HeaderComponent,
     FooterComponent,
     ConverterComponent,
-    LoaderComponent
+    LoaderComponent,
+    ConversionsDetailsComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+  imports: [BrowserModule, AppRoutingModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
