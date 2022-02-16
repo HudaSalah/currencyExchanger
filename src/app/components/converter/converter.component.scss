@@ -1,0 +1,53 @@
+@import "src/styles.scss";
+
+#converterId {
+  h5 {
+    color: $color-orange;
+  }
+  form {
+    border-bottom: 1px solid $color-gray;
+    background-color: #ffca75a3;
+    padding: 25px;
+    border-radius: 7px;
+    .form-group {
+      min-height: 125px;
+      @media #{$information-MobileLarge} {
+        min-height: 65px;
+      }
+      label {
+        margin-bottom: 7px;
+      }
+      input {
+        @extend %input;
+      }
+      small {
+        color: $color-orange;
+      }
+    }
+
+    .submit-btn {
+      height: 60px;
+    }
+  }
+
+  .currencyOutput {
+  }
+
+  .similarResults {
+    h5 {
+      color: $color-petroleum;
+      border: 1px solid $color-petroleum;
+      padding: 22px 10px;
+    }
+    .border-left {
+      border-left: 1px solid $color-orange;
+    }
+    p {
+      span {
+        &:nth-of-type(2) {
+          color: $color-orange;
+        }
+      }
+    }
+  }
+}
