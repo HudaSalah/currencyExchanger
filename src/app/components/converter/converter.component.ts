@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, UrlSerializer } from '@angular/router';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
@@ -17,6 +17,10 @@ export class ConverterComponent implements OnInit {
   ConverterForm: FormGroup;
   // ConverterObj: ConverterModel = new ConverterModel();
   FixerResponse: FixerResponse = new FixerResponse();
+  @Input() From;
+  @Input() To ;
+  @Input() disableInput ;
+
   @Output() convertedInfo : EventEmitter<object> =   new EventEmitter();
   convertedVal;
   currencyData = [];
@@ -85,9 +89,6 @@ export class ConverterComponent implements OnInit {
     );
   }
 
-  setBaseCurrency() {}
-  setTargetCurrency() {}
-
   swap() {
     let temp = this.ConverterFormControl.base.value;
     this.ConverterFormControl.base.setValue(
@@ -97,6 +98,7 @@ export class ConverterComponent implements OnInit {
   }
 
   createParams(values?) {
+    // debugger
     const tree = this.router.createUrlTree([], {
       queryParams: {
         access_key:this.API_KEY,
@@ -105,22 +107,23 @@ export class ConverterComponent implements OnInit {
         amount : values?.amount
       },
     });
-    let params = this.serializer.serialize(tree).substring(1);
+    // let params = this.serializer.serialize(tree).substring(1);
+    let params = `?access_key=${this.API_KEY}`
     return params;
   }
 
   onSubmit(ConverterForm) {
+    console.log(ConverterForm.value)
     if (ConverterForm.invalid) {
       this.validation.validateAllFormFields(ConverterForm);
       return;
     }
 
-
     this.convertedVal = ConverterForm.value;
     this.convertedVal.result = '233';
     this.convertedInfo.emit(this.convertedVal);
-    console.log(this.convertedVal)
-    let params = this.createParams(ConverterForm.value);
+
+    // let params = this.createParams(ConverterForm.value);
     // this.ApiService.get(`/convert${params}`).subscribe(
     //   (res) => {
     //     console.log(res);
@@ -135,8 +138,14 @@ export class ConverterComponent implements OnInit {
     // );
   }
 
+  setDropdownVal(){
+    this.ConverterFormControl.base.setValue(this.From);
+    this.ConverterFormControl.target.setValue(this.To);
+  }
+
   ngOnInit(): void {
     this.initForm();
     this.getCurrencies();
+    this.setDropdownVal();
   }
 }

@@ -15,7 +15,7 @@
         bindValue="id"
         [placeholder]="'Select the currency to convert'"
         formControlName="base"
-        (change)="setBaseCurrency()"
+        [readonly]="disableInput"
         required
       >
       </ng-select>
@@ -35,7 +35,7 @@
     <div
       class="form-group col-md-2 d-flex justify-content-center align-items-center"
     >
-      <button (click)="swap()" type="button" class="btn btn-green">
+      <button (click)="swap()" [disabled]="disableInput" type="button" class="btn btn-green">
         <i class="bi bi-arrow-left-right"></i>
       </button>
     </div>
@@ -50,7 +50,7 @@
         bindValue="id"
         [placeholder]="'Select the currency to convert to'"
         formControlName="target"
-        (change)="setTargetCurrency()"
+        [readonly]="disableInput"
         required
       >
       </ng-select>
@@ -71,7 +71,7 @@
     </div>
   </div>
 
-  <div class="row mb-3 d-flex justify-content-between">
+  <div class="row mb-3 d-flex justify-content-between" *ngIf="!disableInput">
     <!-- amount input  -->
     <div class="form-group col-12 col-md-5">
       <label>Amount : </label>

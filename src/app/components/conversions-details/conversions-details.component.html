@@ -1,0 +1,13 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<main>
+  <section id="converterDetails">
+    <div class="container py-5 my-3">
+      <app-converter [From]="from" [To]="to" [disableInput]="true"></app-converter>
+      <div class="p-4 w-75 mx-auto mb-5">
+        <button routerLink="/" type="button" class="w-100 btn btn-orange">
+          Home Page
+        </button>
+      </div>
+    </div>
+  </section>
+</main>
