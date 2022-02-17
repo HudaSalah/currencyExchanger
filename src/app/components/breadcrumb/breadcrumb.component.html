@@ -1,0 +1,11 @@
+<div class="col-12 d-flex mt-5">
+  <nav>
+    <ol class="cd-breadcrumb">
+      <li *ngFor="let item of breadcrumb">
+        <a routerLink="{{ item.routeLink }}" [queryParams]="item.queryParams">{{
+          item.pageName
+        }}</a>
+      </li>
+    </ol>
+  </nav>
+</div>

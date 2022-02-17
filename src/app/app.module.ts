@@ -13,6 +13,7 @@ import { ConverterComponent } from './components/converter/converter.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { ConversionsDetailsComponent } from './components/conversions-details/conversions-details.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
+import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
     LoaderComponent,
     ConversionsDetailsComponent,
     HomePageComponent,
+    BreadcrumbComponent,
   ],
   imports: [
     BrowserModule,

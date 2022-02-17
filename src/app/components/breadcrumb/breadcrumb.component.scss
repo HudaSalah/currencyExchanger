@@ -1,0 +1,49 @@
+@import "src/styles.scss";
+
+.cd-breadcrumb {
+  padding: 0.5em 1em;
+  margin: 1em;
+  background-color: $color-light-orange;
+  border-radius: 0.25em;
+  text-align: right;
+  li {
+    display: inline-block;
+    // margin: 0.5em 0;
+    &::after {
+      display: inline-block;
+      content: "\00bb";
+      margin: 0 0.6em;
+      color: #959fa5;
+    }
+    &:last-of-type {
+      a {
+        color: #78828c;
+        cursor: unset;
+        &:hover {
+          color: #78828c;
+          text-decoration: none;
+        }
+      }
+      &::after {
+        display: none;
+      }
+    }
+    > * {
+      display: inline-block;
+      font-size: 18px;
+      color: $color-dark-petroleum;
+      @media #{$information-tablet} {
+        font-size: 15px;
+      }
+      @media #{$information-MobileLarge} {
+        font-size: 11px;
+        font-weight: bold;
+      }
+    }
+    a {
+      &:hover {
+        color: $color-orange;
+      }
+    }
+  }
+}
