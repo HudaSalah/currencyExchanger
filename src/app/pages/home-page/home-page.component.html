@@ -1,0 +1,65 @@
+<main>
+  <section id="converterId">
+    <div class="container py-5 my-3">
+      <app-converter (convertedInfo)="getConvertedInfo($event)"></app-converter>
+
+      <div *ngIf="convertedInfo">
+        <div class="currencyOutput p-4 w-75 mx-auto mb-5">
+          <h5 class="mb-3">CURRENCY CONVERTION</h5>
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <!-- amount input  -->
+              <label>Currency Before convertsion : </label>
+              <p>
+                {{ convertedInfo.amount }} <span>{{ convertedInfo.base }}</span>
+              </p>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <!-- amount output  -->
+              <label>Currency After convertsion : </label>
+              <p>
+                {{ convertedInfo.result }}
+                <span>{{ convertedInfo.target }}</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="row">
+            <button [routerLink]="[
+            '/details/' + convertedInfo.base + '/' + convertedInfo.target
+          ]" type="button" class="w-100 btn btn-orange">
+              Show Details
+            </button>
+          </div>
+        </div>
+
+        <div class="similarResults p-4 w-75 mx-auto">
+          <!-- show list of convertsion selected currency (base) for constant data amount -> (target) currencies -->
+          <div class="row mb-5">
+            <h5>Convert {{ convertedInfo.base }} to {{ convertedInfo.target }} for different Amount</h5>
+            <div class="col-4">
+              <p *ngFor="let item of amountValues"><span>{{item}}</span> <span> {{ convertedInfo.base }}</span></p>
+            </div>
+
+            <div class="col-4 border-left">
+              <p *ngFor="let item of resultFromToValues"><span>{{item}}</span> <span>  {{ convertedInfo.target }}</span></p>
+            </div>
+          </div>
+          <!-- show list of convertsion for (target) currency with constant data amount -> selected currency (base) -->
+          <div class="row">
+            <h5>Convert {{ convertedInfo.target }} to {{ convertedInfo.base }} different Amount</h5>
+            <div class="col-4">
+              <p *ngFor="let item of amountValues"><span>{{item}}</span> <span> {{ convertedInfo.target }}</span></p>
+            </div>
+
+            <div class="col-4 border-left">
+              <p *ngFor="let item of resultToFromValues"><span>{{item}}</span> <span>{{ convertedInfo.base }}</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<app-loader *ngIf="isloading"></app-loader>

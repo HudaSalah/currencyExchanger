@@ -1,0 +1,29 @@
+@import "src/styles.scss";
+
+form {
+  border-bottom: 1px solid $color-gray;
+  background-color: #ffca75a3;
+  padding: 25px;
+  border-radius: 7px;
+  .form-group {
+    min-height: 125px;
+    @media #{$information-MobileLarge} {
+      min-height: 65px;
+    }
+    label {
+      margin-bottom: 7px;
+    }
+    input {
+      @extend %input;
+    }
+    small {
+      color: $color-orange;
+    }
+  }
+  button:disabled, button[disabled] {
+    cursor: not-allowed;
+}
+  .submit-btn {
+    height: 60px;
+  }
+}

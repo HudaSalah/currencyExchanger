@@ -1,0 +1,58 @@
+@import "src/styles.scss";
+.navbar {
+  padding: 0 10px;
+  background-color: $color-orange;
+  .navbar-brand {
+    .mainLogo {
+      img {
+        width: 55px;
+        @media #{$information-tablet} {
+          width: 50px;
+        }
+      }
+    }
+    label {
+      font-size: 14px;
+      font-weight: bold;
+      color: white;
+      padding: 10px;
+    }
+  }
+
+  #mainNavbar {
+    .navbar-nav {
+      flex-direction: row;
+      justify-content: end;
+      align-items: center;
+
+      .nav-item {
+        .nav-link {
+          font-size: 14px;
+          margin-left: 30px;
+          color: white;
+          cursor: pointer;
+          transition: 0.5s;
+
+          &:hover,
+          &:active,
+          &:focus {
+            position: relative;
+            color: $color-dark-petroleum;
+            outline: none;
+            border-bottom: 1px solid $color-dark-petroleum;
+          }
+
+          .active {
+            position: relative;
+            color: $color-dark-petroleum;
+            outline: none;
+            border-bottom: 1px solid $color-dark-petroleum;
+          }
+          @media #{$information-MobileLarge} {
+            padding: 0.3rem;
+          }
+        }
+      }
+    }
+  }
+}

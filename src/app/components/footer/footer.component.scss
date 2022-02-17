@@ -1,0 +1,40 @@
+@import "src/styles.scss";
+
+footer {
+  background-color: $color-petroleum;
+  color: #f7f7f6;
+  text-align: right;
+
+  .copyRight {
+    background-color: $color-dark-petroleum;
+    color: #f7f7f6;
+    padding: 15px;
+    @media #{$information-MobileLarge}{
+      flex-direction: column-reverse;
+    }
+    p {
+      margin: 0;
+      @media #{$information-MobileLarge} {
+        font-size: 14px;
+        margin-top: 10px;
+      }
+    }
+
+    a{
+      background-color: white;
+      border-radius: 6px;
+      padding: 5px;
+      margin: 0 6px;
+      transition: 0.5s;
+      i{
+        color: $color-petroleum;
+      }
+      &:hover{
+        background-color: $color-petroleum;
+        i{
+          color: white;
+        }
+      }
+    }
+  }
+}

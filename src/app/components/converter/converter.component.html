@@ -1,1 +1,119 @@
-<p>converter works!</p>
+<form
+  class="w-75 mx-auto"
+  [formGroup]="ConverterForm"
+  (ngSubmit)="onSubmit(ConverterForm)"
+>
+  <h5 class="mb-3">CURRENCY CONVERTER</h5>
+  <div class="row mb-3">
+    <!-- From dropdown  -->
+    <div class="form-group col-md-5">
+      <label>From : </label>
+      <ng-select
+        [items]="currencyData"
+        class="form-control w-100 p-0"
+        bindLabel="name"
+        bindValue="id"
+        [placeholder]="'Select the currency to convert'"
+        formControlName="base"
+        (change)="setBaseCurrency()"
+        required
+      >
+      </ng-select>
+      <small id="base" class="form-text" *ngIf="hasError('base', 'required')">
+        * this field is required
+      </small>
+      <small
+        id="base"
+        class="form-text"
+        *ngIf="hasError('base', 'serverError')"
+      >
+        {{ getServerErr("base") }}
+      </small>
+    </div>
+
+    <!-- swap button  -->
+    <div
+      class="form-group col-md-2 d-flex justify-content-center align-items-center"
+    >
+      <button (click)="swap()" type="button" class="btn btn-green">
+        <i class="bi bi-arrow-left-right"></i>
+      </button>
+    </div>
+
+    <!-- To dropdown  -->
+    <div class="form-group col-md-5">
+      <label>To : </label>
+      <ng-select
+        [items]="currencyData"
+        class="form-control w-100 p-0"
+        bindLabel="name"
+        bindValue="id"
+        [placeholder]="'Select the currency to convert to'"
+        formControlName="target"
+        (change)="setTargetCurrency()"
+        required
+      >
+      </ng-select>
+      <small
+        id="target"
+        class="form-text"
+        *ngIf="hasError('target', 'required')"
+      >
+        * this field is required
+      </small>
+      <small
+        id="target"
+        class="form-text"
+        *ngIf="hasError('target', 'serverError')"
+      >
+        {{ getServerErr("target") }}
+      </small>
+    </div>
+  </div>
+
+  <div class="row mb-3 d-flex justify-content-between">
+    <!-- amount input  -->
+    <div class="form-group col-12 col-md-5">
+      <label>Amount : </label>
+      <input
+        placeholder="write amount in number"
+        type="text"
+        class="form-control"
+        formControlName="amount"
+        required
+      />
+      <small
+        id="amount"
+        class="form-text"
+        *ngIf="hasError('amount', 'pattern')"
+      >
+        * Only Numbers allowed
+      </small>
+      <small
+        id="amount"
+        class="form-text"
+        *ngIf="hasError('amount', 'required')"
+      >
+        * this field is required
+      </small>
+      <small
+        id="amount"
+        class="form-text"
+        *ngIf="hasError('amount', 'serverError')"
+      >
+        {{ getServerErr("amount") }}
+      </small>
+    </div>
+
+    <!-- convert button  -->
+    <div class="form-group col-12 col-md-5 d-flex align-items-center">
+      <button
+        type="submit"
+        class="w-100 btn submit-btn btn-orange"
+        [disabled]="ConverterForm.invalid"
+      >
+        <i class="bi bi-currency-exchange"></i> Convert
+      </button>
+    </div>
+  </div>
+</form>

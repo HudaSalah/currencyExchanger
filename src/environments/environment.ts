@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  baseApiUrl:'http://data.fixer.io/api',
+  API_KEY:'af34372e4813abebf89059c5adf60aeb'
 };
 
 /*
