@@ -12,6 +12,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ConverterComponent } from './components/converter/converter.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { ConversionsDetailsComponent } from './components/conversions-details/conversions-details.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { ConversionsDetailsComponent } from './components/conversions-details/co
     ConverterComponent,
     LoaderComponent,
     ConversionsDetailsComponent,
+    HomePageComponent,
   ],
   imports: [
     BrowserModule,
