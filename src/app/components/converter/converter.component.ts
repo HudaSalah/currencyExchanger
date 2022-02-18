@@ -1,12 +1,9 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router, ActivatedRoute, UrlSerializer } from '@angular/router';
+import { Router, UrlSerializer } from '@angular/router';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
-// import { ConverterModel } from 'src/app/models/converter-model';
 import { FixerResponse } from 'src/app/models/FixerResponse-model';
 import { ApiService } from 'src/app/services/api.service';
-import { DataService } from 'src/app/services/data.service';
-import { DOCUMENT } from '@angular/common';
 import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-converter',
@@ -15,13 +12,12 @@ import { environment } from 'src/environments/environment';
 })
 export class ConverterComponent implements OnInit {
   ConverterForm: FormGroup;
-  // ConverterObj: ConverterModel = new ConverterModel();
   FixerResponse: FixerResponse = new FixerResponse();
   @Input() From;
   @Input() To ;
   @Input() disableInput ;
-
   @Output() convertedInfo : EventEmitter<object> =   new EventEmitter();
+
   convertedVal;
   currencyData = [];
   isloading = false;
@@ -30,8 +26,6 @@ export class ConverterComponent implements OnInit {
     private router: Router,
     private validation: FormValidatorService,
     private ApiService: ApiService,
-    private dataService: DataService,
-    @Inject(DOCUMENT) private document: Document,
     private serializer: UrlSerializer
   ) {}
 
@@ -64,10 +58,6 @@ export class ConverterComponent implements OnInit {
 
   getServerErr(itemName) {
     return this.ConverterFormControl[itemName].errors.serverError[0];
-  }
-
-  redirectTo() {
-    // this.router.navigate(['/profile']);
   }
 
   getCurrencies() {
@@ -107,8 +97,8 @@ export class ConverterComponent implements OnInit {
         amount : values?.amount
       },
     });
-    // let params = this.serializer.serialize(tree).substring(1);
-    let params = `?access_key=${this.API_KEY}`
+    let params = this.serializer.serialize(tree).substring(1);
+    // let params = `?access_key=${this.API_KEY}`
     return params;
   }
 
@@ -119,23 +109,24 @@ export class ConverterComponent implements OnInit {
       return;
     }
 
-    this.convertedVal = ConverterForm.value;
-    this.convertedVal.result = '233';
-    this.convertedInfo.emit(this.convertedVal);
+    // this.convertedVal = ConverterForm.value;
+    // this.convertedVal.result = '233';
+    // this.convertedInfo.emit(this.convertedVal);
 
-    // let params = this.createParams(ConverterForm.value);
-    // this.ApiService.get(`/convert${params}`).subscribe(
-    //   (res) => {
-    //     console.log(res);
-    //     let result = res as FixerResponse;
-    //     this.convertedVal.result = result.result;
-    //     this.convertedInfo.emit(this.convertedVal);
-    //   },
-    //   (err) => {
-    //     console.log(err.response.data.errors);
-    //     this.validation.validateAllErrorsFormFields(err, ConverterForm);
-    //   }
-    // );
+    let params = this.createParams(ConverterForm.value);
+    this.ApiService.get(`/convert${params}`).subscribe(
+      (res) => {
+        console.log(res);
+        let result = res as FixerResponse;
+        this.convertedVal = ConverterForm.value;
+        this.convertedVal.result = result.result;
+        this.convertedInfo.emit(this.convertedVal);
+      },
+      (err) => {
+        console.log(err.response.data.errors);
+        this.validation.validateAllErrorsFormFields(err, ConverterForm);
+      }
+    );
   }
 
   setDropdownVal(){
