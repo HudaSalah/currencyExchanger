@@ -2,11 +2,37 @@
 <main>
   <section id="converterDetails">
     <div class="container py-5 my-3">
-      <app-converter [From]="from" [To]="to" [disableInput]="true"></app-converter>
-      <div class="p-4 w-75 mx-auto mb-5">
+      <app-converter
+        [From]="from"
+        [To]="to"
+        [disableInput]="true"
+      ></app-converter>
+      <div class="p-4 w-75 mx-auto mb-3">
         <button routerLink="/" type="button" class="w-100 btn btn-orange">
           Home Page
         </button>
+      </div>
+    </div>
+  </section>
+
+  <section id="conversionHistory">
+    <div class="container">
+      <div class="p-4 w-75 mx-auto mb-5">
+        <h5>Historical data for selected conversions</h5>
+        <label>
+          Historical values for the same selected currencies for last year,
+          month and day :
+        </label>
+        <div *ngFor="let item of historicalData">
+          <div *ngFor="let el of item | keyvalue">
+            <!-- 2012-05-01: {USD: 1.322891, AUD: 1.278047, CAD: 1.302303} -->
+            <label
+              >Date: <span>{{ el.key }}</span></label
+            >
+            <i class="bi bi-chevron-double-right"></i>
+            <label>1 {{ from }} = {{ el.value[to] }} {{ to }}</label>
+          </div>
+        </div>
       </div>
     </div>
   </section>
