@@ -14,6 +14,7 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { ConversionsDetailsComponent } from './components/conversions-details/conversions-details.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
+import { DetailsComponentComponent } from './pages/details-component/details-component.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
     ConversionsDetailsComponent,
     HomePageComponent,
     BreadcrumbComponent,
+    DetailsComponentComponent
   ],
   imports: [
     BrowserModule,
