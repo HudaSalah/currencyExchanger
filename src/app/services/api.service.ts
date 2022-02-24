@@ -16,4 +16,13 @@ export class ApiService {
   get(path: string) : Observable<object> {
     return this.http.get(`${this.apiUrl}${path}`);
   }
+
+  createParams(obj) {
+    var str = [];
+    for (var p in obj)
+      if (obj.hasOwnProperty(p) &&obj[p] !== undefined ) {
+        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+      }
+    return str.join("&");
+  }
 }

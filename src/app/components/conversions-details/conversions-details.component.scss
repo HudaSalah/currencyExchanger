@@ -1,5 +1,13 @@
 @import "src/styles.scss";
 
 #conversionHistory{
+  color: #015681;
+  .color-orange{
+    color: $color-orange;
+  }
 
+  .historyCurrency{
+    border: 1px solid $color-gray;
+    padding: 10px;
+  }
 }
