@@ -18,19 +18,63 @@
   <section id="conversionHistory">
     <div class="container">
       <div class="p-4 w-75 mx-auto mb-5">
-        <h5>Historical data for selected conversions</h5>
-        <label>
-          Historical values for the same selected currencies for last year,
-          month and day :
+        <h4 class="color-orange mb-3">
+          Historical data for selected conversions
+        </h4>
+        <label class="pb-3">
+          <i class="color-orange bi bi-clock-history"></i> Historical values for
+          the same selected currencies for last year, month and day :
         </label>
-        <div *ngFor="let item of historicalData">
-          <div *ngFor="let el of item | keyvalue">
-            <!-- 2012-05-01: {USD: 1.322891, AUD: 1.278047, CAD: 1.302303} -->
+        <div>
+          <!-- 2012-05-01: {USD: 1.322891, AUD: 1.278047, CAD: 1.302303} -->
+          <label
+            >Date : <span class="pl-2">{{ startDate }}</span></label
+          >
+          <i class="bi bi-chevron-double-right px-3"></i>
+          <label>1 {{ from }} >> {{ historicResult }} {{ to }}</label>
+        </div>
+
+        <br />
+        <br />
+        <label class="pb-3">
+          <i class="color-orange bi bi-archive-fill"></i> List showing the
+          conversions of <span class="color-orange">{{ from }}</span> to other
+          currencies:
+        </label>
+
+        <div class="row">
+          <div
+            class="col-12 col-md-6 historyCurrency"
+            *ngFor="let item of historicalDataFromBase"
+          >
+            <label>1 {{ from }} </label>
+            <i class="bi bi-chevron-double-right px-3"></i>
             <label
-              >Date: <span>{{ el.key }}</span></label
+              >{{ item.rate }}
+              <span class="color-orange">{{ item.currency }}</span></label
             >
-            <i class="bi bi-chevron-double-right"></i>
-            <label>1 {{ from }} = {{ el.value[to] }} {{ to }}</label>
+          </div>
+        </div>
+
+        <br />
+        <br />
+        <label class="pb-3">
+          <i class="color-orange bi bi-archive-fill"></i>List showing the
+          conversions of other list of currencies to
+          <span class="color-orange">{{ from }}</span> :
+        </label>
+
+        <div class="row">
+          <div
+            class="col-12 col-md-6 historyCurrency"
+            *ngFor="let item of historicalDataFromOthers"
+          >
+            <label>1 <span class="color-orange">{{ item.currency }}</span></label>
+            <i class="bi bi-chevron-double-right px-3"></i>
+            <label
+              >{{ item.rate }}
+              {{ from }}</label
+            >
           </div>
         </div>
       </div>

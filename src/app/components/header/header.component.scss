@@ -2,6 +2,7 @@
 .navbar {
   padding: 0 10px;
   background-color: $color-orange;
+  justify-content: space-between;
   .navbar-brand {
     .mainLogo {
       img {
@@ -50,6 +51,7 @@
           }
           @media #{$information-MobileLarge} {
             padding: 0.3rem;
+            margin-left: 10px;
           }
         }
       }

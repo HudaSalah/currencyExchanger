@@ -21,33 +21,41 @@ export class HomePageComponent implements OnInit {
 
   getConvertedInfo(event) {
     this.convertedInfo = event;
-    this.resultFromToValues = this.getResultValues(this.convertedInfo.base, this.convertedInfo.target);
-    this.resultToFromValues = this.getResultValues(this.convertedInfo.target, this.convertedInfo.base);
-    console.log(this.convertedInfo);
+    this.getResultValues(
+      this.convertedInfo.base,
+      this.convertedInfo.target,
+      this.resultFromToValues
+    );
+
+    this.getResultValues(
+      this.convertedInfo.target,
+      this.convertedInfo.base,
+      this.resultToFromValues
+    );
   }
 
-  getResultValues(from, to) {
-    let resultValues = [];
-    let params = {
+  getResultValues(from, to, arr) {
+    let params = this.ApiService.createParams({
       access_key: this.API_KEY,
-      from: from,
-      to: to,
-      amount: 1,
-    };
-    this.ApiService.get(`/convert${params}`).subscribe(
+      symbols: `${from},${to}`,
+      foramt: 1,
+    });
+
+    this.ApiService.get(`/latest?${params}`).subscribe(
       (res) => {
         console.log(res);
         let result = res as FixerResponse;
-        let output = result.result; // 15
+        let baseRate = result.rates[from];
+        let targetRate = result.rates[to];
+
         this.amountValues.forEach((element) => {
-          resultValues.push(element * output);
+          arr.push(element * (targetRate / baseRate));
         });
       },
       (err) => {
         console.log(err);
       }
     );
-    return resultValues;
   }
 
   ngOnInit(): void {}

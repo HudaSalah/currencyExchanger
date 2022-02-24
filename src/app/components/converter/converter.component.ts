@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router, UrlSerializer } from '@angular/router';
 import { FormValidatorService } from 'src/app/services/form-validator.service';
 import { FixerResponse } from 'src/app/models/FixerResponse-model';
 import { ApiService } from 'src/app/services/api.service';
@@ -14,19 +13,17 @@ export class ConverterComponent implements OnInit {
   ConverterForm: FormGroup;
   FixerResponse: FixerResponse = new FixerResponse();
   @Input() From;
-  @Input() To ;
-  @Input() disableInput ;
-  @Output() convertedInfo : EventEmitter<object> =   new EventEmitter();
+  @Input() To;
+  @Input() disableInput;
+  @Output() convertedInfo: EventEmitter<object> = new EventEmitter();
 
   convertedVal;
   currencyData = [];
   isloading = false;
   API_KEY: string = environment.API_KEY;
   constructor(
-    private router: Router,
     private validation: FormValidatorService,
-    private ApiService: ApiService,
-    private serializer: UrlSerializer
+    private ApiService: ApiService
   ) {}
 
   private initForm() {
@@ -61,8 +58,7 @@ export class ConverterComponent implements OnInit {
   }
 
   getCurrencies() {
-    let params = this.createParams();
-    this.ApiService.get(`/symbols${params}`).subscribe(
+    this.ApiService.get(`/symbols?access_key=${this.API_KEY}`).subscribe(
       (res) => {
         console.log(res);
         let result = res as FixerResponse;
@@ -87,49 +83,69 @@ export class ConverterComponent implements OnInit {
     this.ConverterFormControl.target.setValue(temp);
   }
 
-  createParams(values?) {
-    // debugger
-    const tree = this.router.createUrlTree([], {
-      queryParams: {
-        access_key:this.API_KEY,
-        from : values?.base,
-        to : values?.target,
-        amount : values?.amount
-      },
-    });
-    let params = this.serializer.serialize(tree).substring(1);
-    // let params = `?access_key=${this.API_KEY}`
-    return params;
-  }
+  // convertFromEur(currency) {
+  //   let params = this.ApiService.createParams({
+  //     access_key: this.API_KEY,
+  //     symbols: currency,
+  //     foramt: 1,
+  //   });
+
+  //   this.ApiService.get(`/latest?${params}`).subscribe(
+  //     (res) => {
+  //       console.log(res);
+  //       let result = res as FixerResponse;
+  //       return result.rates[currency];
+  //     },
+  //     (err) => {
+  //       console.log(err);
+  //     }
+  //   );
+  // }
 
   onSubmit(ConverterForm) {
-    console.log(ConverterForm.value)
+    console.log(ConverterForm.value);
     if (ConverterForm.invalid) {
       this.validation.validateAllFormFields(ConverterForm);
       return;
     }
 
-    // this.convertedVal = ConverterForm.value;
-    // this.convertedVal.result = '233';
-    // this.convertedInfo.emit(this.convertedVal);
+    let params = this.ApiService.createParams({
+      access_key: this.API_KEY,
+      symbols: `${ConverterForm.value.base},${ConverterForm.value.target}`,
+      foramt: 1,
+    });
 
-    let params = this.createParams(ConverterForm.value);
-    this.ApiService.get(`/convert${params}`).subscribe(
+    this.ApiService.get(`/latest?${params}`).subscribe(
       (res) => {
         console.log(res);
         let result = res as FixerResponse;
+        let ratesOfCurrency = result.rates;
+
+        let baseRate = ratesOfCurrency[ConverterForm.value.base];
+        let targetRate = ratesOfCurrency[ConverterForm.value.target];
+        let amount = ConverterForm.value.amount;
+
         this.convertedVal = ConverterForm.value;
-        this.convertedVal.result = result.result;
+        this.convertedVal.result = (targetRate / baseRate) * amount;
         this.convertedInfo.emit(this.convertedVal);
       },
       (err) => {
-        console.log(err.response.data.errors);
-        this.validation.validateAllErrorsFormFields(err, ConverterForm);
+        console.log(err);
       }
     );
+    // this.convertFromEur(`${ConverterForm.value.base},${ConverterForm.value.target}`);
+    // console.log('this.ratesOfCurrency' , this.ratesOfCurrency)
+    // let baseRate = this.ratesOfCurrency[ConverterForm.value.base]
+    // let targetRate = this.ratesOfCurrency[ConverterForm.value.target];
+    // let amount = ConverterForm.value.amount;
+
+    // this.convertedVal = ConverterForm.value;
+    // this.convertedVal.result = (targetRate / baseRate) * amount;
+    // console.log('result:' , this.convertedVal);
+    // this.convertedInfo.emit(this.convertedVal);
   }
 
-  setDropdownVal(){
+  setDropdownVal() {
     this.ConverterFormControl.base.setValue(this.From);
     this.ConverterFormControl.target.setValue(this.To);
   }
