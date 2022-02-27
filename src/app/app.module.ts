@@ -11,7 +11,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ConverterComponent } from './components/converter/converter.component';
 import { LoaderComponent } from './components/loader/loader.component';
-import { ConversionsDetailsComponent } from './components/conversions-details/conversions-details.component';
+import { ConversionsDetailsComponent } from './pages/conversions-details/conversions-details.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { DetailsComponentComponent } from './pages/details-component/details-component.component';
