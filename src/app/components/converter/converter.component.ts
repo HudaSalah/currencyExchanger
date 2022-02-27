@@ -58,6 +58,7 @@ export class ConverterComponent implements OnInit {
   }
 
   getCurrencies() {
+    // this.isloading = true;
     this.ApiService.get(`/symbols?access_key=${this.API_KEY}`).subscribe(
       (res) => {
         console.log(res);
@@ -67,7 +68,7 @@ export class ConverterComponent implements OnInit {
           this.currencyData.push({ id: key, name: value });
         });
         this.currencyData = [...this.currencyData];
-        console.log(this.currencyData);
+        // this.isloading = false;
       },
       (err) => {
         console.log(err);

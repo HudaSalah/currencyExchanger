@@ -35,6 +35,7 @@ export class HomePageComponent implements OnInit {
   }
 
   getResultValues(from, to, arr) {
+    // this.isloading = true ;
     let params = this.ApiService.createParams({
       access_key: this.API_KEY,
       symbols: `${from},${to}`,
@@ -51,6 +52,8 @@ export class HomePageComponent implements OnInit {
         this.amountValues.forEach((element) => {
           arr.push(element * (targetRate / baseRate));
         });
+
+        // this.isloading = false;
       },
       (err) => {
         console.log(err);
