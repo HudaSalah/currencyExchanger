@@ -83,25 +83,6 @@ export class ConverterComponent implements OnInit {
     this.ConverterFormControl.target.setValue(temp);
   }
 
-  // convertFromEur(currency) {
-  //   let params = this.ApiService.createParams({
-  //     access_key: this.API_KEY,
-  //     symbols: currency,
-  //     foramt: 1,
-  //   });
-
-  //   this.ApiService.get(`/latest?${params}`).subscribe(
-  //     (res) => {
-  //       console.log(res);
-  //       let result = res as FixerResponse;
-  //       return result.rates[currency];
-  //     },
-  //     (err) => {
-  //       console.log(err);
-  //     }
-  //   );
-  // }
-
   onSubmit(ConverterForm) {
     console.log(ConverterForm.value);
     if (ConverterForm.invalid) {
@@ -133,16 +114,6 @@ export class ConverterComponent implements OnInit {
         console.log(err);
       }
     );
-    // this.convertFromEur(`${ConverterForm.value.base},${ConverterForm.value.target}`);
-    // console.log('this.ratesOfCurrency' , this.ratesOfCurrency)
-    // let baseRate = this.ratesOfCurrency[ConverterForm.value.base]
-    // let targetRate = this.ratesOfCurrency[ConverterForm.value.target];
-    // let amount = ConverterForm.value.amount;
-
-    // this.convertedVal = ConverterForm.value;
-    // this.convertedVal.result = (targetRate / baseRate) * amount;
-    // console.log('result:' , this.convertedVal);
-    // this.convertedInfo.emit(this.convertedVal);
   }
 
   setDropdownVal() {
