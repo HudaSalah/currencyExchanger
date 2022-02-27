@@ -20,6 +20,7 @@ export class ConversionsDetailsComponent implements OnInit {
 
   historicalDataFromBase = [];
   historicalDataFromOthers = [];
+  isloading: boolean;
 
   constructor(private route: ActivatedRoute, private ApiService: ApiService) {}
 
@@ -55,6 +56,7 @@ export class ConversionsDetailsComponent implements OnInit {
   }
 
   getCurrenciesFromBase() {
+    this.isloading = true;
     let params = this.ApiService.createParams({
       access_key: this.API_KEY,
       foramt: 1,
@@ -83,6 +85,7 @@ export class ConversionsDetailsComponent implements OnInit {
 
         this.historicalDataFromBase = this.historicalDataFromBase.slice(0, 20);
         this.historicalDataFromOthers = this.historicalDataFromOthers.slice(0, 20);
+        this.isloading = false;
       },
       (err) => {
         console.log(err);
